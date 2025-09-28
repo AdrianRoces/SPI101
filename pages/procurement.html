@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Procurement - Balay Ginhawa</title>
+    <link rel="stylesheet" href="../styles/procurement.css">
+</head>
+<body>
+    <!-- Add Order Popup -->
+    <div class="popup-overlay" id="addOrderPopup">
+        <div class="popup-content">
+            <div class="popup-header">
+                <div class="popup-icon-title">
+                    <div class="popup-icon">
+                        <img src="../images/add.png" alt="Add Order">
+                    </div>
+                    <h2>Add New Order</h2>
+                </div>
+                <button class="close-popup" onclick="closePopup('addOrderPopup')">&times;</button>
+            </div>
+            <div class="popup-divider"></div>
+            <div class="popup-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Order ID <span class="required">*</span></label>
+                        <input type="text" id="orderId" value="AUTO-GENERATED" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label>Date <span class="required">*</span></label>
+                        <input type="date" id="orderDate" required>
+                    </div>
+                </div>
+                <div class="form-group full-width">
+                    <label>Supplier <span class="required">*</span></label>
+                    <select id="supplier" required>
+                        <option value="" disabled selected>Select Supplier</option>
+                        <option value="ABC Supplies Co.">ABC Supplies Co.</option>
+                        <option value="Hotel Essentials Ltd.">Hotel Essentials Ltd.</option>
+                        <option value="Quality Linens Inc.">Quality Linens Inc.</option>
+                    </select>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Items <span class="required">*</span></label>
+                        <input type="number" id="itemCount" placeholder="Enter quantity" min="1" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Total Value <span class="required">*</span></label>
+                        <div class="currency-input">
+                            <span class="currency-symbol">₱</span>
+                            <input type="number" id="totalValue" placeholder="0.00" min="0" step="0.01" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group full-width">
+                    <label>Status <span class="required">*</span></label>
+                    <select id="status" required>
+                        <option value="" disabled selected>Select Status</option>
+                        <option value="Pending">Pending</option>
+                        <option value="In Transit">In Transit</option>
+                        <option value="Delivered">Delivered</option>
+                    </select>
+                </div>
+                <div class="form-actions">
+                    <button class="btn-cancel" onclick="closePopup('addOrderPopup')">CANCEL</button>
+                    <button class="btn-add" onclick="addOrder()">SAVE ORDER</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header">
+        <div class="logo">
+            <div class="logo-icon">
+                <img src="../images/logo.png" alt="Balay Ginhawa Logo">
+            </div>
+            <div class="logo-text">
+                <h1>Balay</h1>
+                <p>ginhawa</p>
+            </div>
+        </div>
+        <div class="header-right">
+            <div class="admin-section">
+                <div class="admin-avatar">A</div>
+                <div class="admin-info">
+                    <span class="admin-name">Sassa</span> <!-- Add admin name here -->
+                    <span class="admin-text">Admin</span>
+                </div>
+            </div>
+            <button class="btn-logout">
+                <span>Logout</span> <!-- Text after icon -->
+                <div class="logout-icon">
+                    <img src="../images/logout.png" alt="Logout"> <!-- Icon first -->
+                </div>
+            </button>
+        </div>
+    </div>
+
+    <div class="main-container">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <h3>INVENTORY</h3>
+            </div>
+            <a href="dashboard.html" class="sidebar-item">
+                <div class="sidebar-icon">
+                    <img src="../images/dashboard.png" alt="Dashboard">
+                </div>
+                <span>Dashboard</span>
+            </a>
+            <a href="inventory.html" class="sidebar-item">
+                <div class="sidebar-icon">
+                    <img src="../images/inventory.png" alt="Inventory">
+                </div>
+                <span>Inventory</span>
+            </a>
+            <a href="procurement.html" class="sidebar-item active">
+                <div class="sidebar-icon">
+                    <img src="../images/procurement.png" alt="Procurement">
+                </div>
+                <span>Procurement</span>
+            </a>
+            <a href="requisitions.html" class="sidebar-item">
+                <div class="sidebar-icon">
+                    <img src="../images/requisitions.png" alt="Requisitions">
+                </div>
+                <span>Requisitions</span>
+            </a>
+            <a href="suppliers.html" class="sidebar-item">
+                <div class="sidebar-icon">
+                    <img src="../images/suppliers.png" alt="Suppliers">
+                </div>
+                <span>Suppliers</span>
+            </a>
+            <a href="analytics.html" class="sidebar-item">
+                <div class="sidebar-icon">
+                    <img src="../images/analytics.png" alt="Analytics">
+                </div>
+                <span>Analytics</span>
+            </a>
+            <a href="departments.html" class="sidebar-item">
+                <div class="sidebar-icon">
+                    <img src="../images/departments.png" alt="Departments">
+                </div>
+                <span>Departments</span>
+            </a>
+            <a href="reports.html" class="sidebar-item">
+                <div class="sidebar-icon">
+                    <img src="../images/reports.png" alt="Reports">
+                </div>
+                <span>Reports</span>
+            </a>
+        </nav>
+
+        <div class="content">
+            <div class="action-buttons">
+                <button class="btn btn-primary" onclick="openPopup('addOrderPopup')">
+                    <div class="btn-icon">
+                        <img src="../images/add.png" alt="Add">
+                    </div>
+                    Add New Order
+                </button>
+            </div>
+
+            <div class="procurement-section">
+                <div class="section-header">
+                    <h2 class="section-title">Recent Procurement Activities</h2>
+                    <div class="header-controls">
+                        <input type="text" class="search-bar" placeholder="Search...">
+                        <select class="sort-dropdown">
+                            <option>Sort by: Default</option>
+                            <option>Order ID</option>
+                            <option>Supplier</option>
+                            <option>Items</option>
+                            <option>Total Value</option>
+                            <option>Status</option>
+                            <option>Date</option>
+                        </select>
+                    </div>
+                </div>
+                <table class="procurement-table">
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Supplier</th>
+                            <th>Items</th>
+                            <th>Total Value</th>
+                            <th>Status</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>544125</td>
+                            <td>ABC Supplies Co.</td>
+                            <td>15</td>
+                            <td>₱45,000</td>
+                            <td><span class="status-badge status-delivered">Delivered</span></td>
+                            <td>2025-09-10</td>
+                        </tr>
+                        <tr>
+                            <td>544125</td>
+                            <td>Hotel Essentials Ltd.</td>
+                            <td>8</td>
+                            <td>₱28,500</td>
+                            <td><span class="status-badge status-in-transit">In Transit</span></td>
+                            <td>2025-09-11</td>
+                        </tr>
+                        <tr>
+                            <td>544125</td>
+                            <td>Quality Linens Inc.</td>
+                            <td>20</td>
+                            <td>₱67,800</td>
+                            <td><span class="status-badge status-pending">Pending</span></td>
+                            <td>2025-09-12</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Function to open popup
+        function openPopup(popupId) {
+            const popup = document.getElementById(popupId);
+            if (popup) {
+                popup.style.display = 'flex';
+                // Set today's date as default
+                if (popupId === 'addOrderPopup') {
+                    document.getElementById('orderDate').valueAsDate = new Date();
+                }
+            }
+        }
+
+        // Function to close popup
+        function closePopup(popupId) {
+            const popup = document.getElementById(popupId);
+            if (popup) {
+                popup.style.display = 'none';
+                if (popupId === 'addOrderPopup') {
+                    resetForm();
+                }
+            }
+        }
+
+        // Function to reset form
+        function resetForm() {
+            document.getElementById('orderDate').valueAsDate = new Date();
+            document.getElementById('supplier').selectedIndex = 0;
+            document.getElementById('itemCount').value = '';
+            document.getElementById('totalValue').value = '';
+            document.getElementById('status').selectedIndex = 0;
+        }
+
+        // Function to generate order ID
+        function generateOrderId() {
+            return Math.floor(100000 + Math.random() * 900000).toString();
+        }
+
+        // Function to add new order
+        function addOrder() {
+            // Get form values
+            const orderDate = document.getElementById('orderDate').value;
+            const supplier = document.getElementById('supplier').value;
+            const itemCount = document.getElementById('itemCount').value;
+            const totalValue = document.getElementById('totalValue').value;
+            const status = document.getElementById('status').value;
+
+            // Validate inputs
+            if (!orderDate || !supplier || !itemCount || !totalValue || !status) {
+                alert('Please fill in all required fields');
+                return;
+            }
+
+            // Create new row
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${generateOrderId()}</td>
+                <td>${supplier}</td>
+                <td>${itemCount}</td>
+                <td>₱${parseFloat(totalValue).toLocaleString('en-PH', { minimumFractionDigits: 2 })}</td>
+                <td><span class="status-badge status-${status.toLowerCase().replace(' ', '-')}">${status}</span></td>
+                <td>${orderDate}</td>
+            `;
+
+            // Add row to table (at the beginning to show newest first)
+            const tbody = document.querySelector('.procurement-table tbody');
+            tbody.insertBefore(row, tbody.firstChild);
+
+            // Close popup and reset form
+            closePopup('addOrderPopup');
+            
+            // Show success message
+            console.log('✅ Order added successfully');
+        }
+
+        // Close popup when clicking outside
+        window.onclick = function(event) {
+            if (event.target.classList.contains('popup-overlay')) {
+                event.target.style.display = 'none';
+                resetForm();
+            }
+        }
+    </script>
+</body>
+</html>

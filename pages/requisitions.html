@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Requisitions - Balay Ginhawa</title>
+    <link rel="stylesheet" href="../styles/requisitions.css">
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            <div class="logo-icon">
+                <img src="../images/logo.png" alt="Balay Ginhawa Logo">
+            </div>
+            <div class="logo-text">
+                <h1>Balay</h1>
+                <p>ginhawa</p>
+            </div>
+        </div>
+        <div class="header-right">
+            <div class="admin-section">
+                <div class="admin-avatar">A</div>
+                <div class="admin-info">
+                    <span class="admin-name">Sassa</span> <!-- Add admin name here -->
+                    <span class="admin-text">Admin</span>
+                </div>
+            </div>
+            <button class="btn-logout">
+                <span>Logout</span> <!-- Text after icon -->
+                <div class="logout-icon">
+                    <img src="../images/logout.png" alt="Logout"> <!-- Icon first -->
+                </div>
+            </button>
+        </div>
+    </div>
+
+    <div class="main-container">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <h3>INVENTORY</h3>
+            </div>
+            <a href="dashboard.html" class="sidebar-item">
+                <div class="sidebar-icon">
+                    <img src="../images/dashboard.png" alt="Dashboard">
+                </div>
+                <span>Dashboard</span>
+            </a>
+            <a href="inventory.html" class="sidebar-item">
+                <div class="sidebar-icon">
+                    <img src="../images/inventory.png" alt="Inventory">
+                </div>
+                <span>Inventory</span>
+            </a>
+            <a href="procurement.html" class="sidebar-item">
+                <div class="sidebar-icon">
+                    <img src="../images/procurement.png" alt="Procurement">
+                </div>
+                <span>Procurement</span>
+            </a>
+            <a href="requisitions.html" class="sidebar-item active">
+                <div class="sidebar-icon">
+                    <img src="../images/requisitions.png" alt="Requisitions">
+                </div>
+                <span>Requisitions</span>
+            </a>
+            <a href="suppliers.html" class="sidebar-item">
+                <div class="sidebar-icon">
+                    <img src="../images/suppliers.png" alt="Suppliers">
+                </div>
+                <span>Suppliers</span>
+            </a>
+            <a href="analytics.html" class="sidebar-item">
+                <div class="sidebar-icon">
+                    <img src="../images/analytics.png" alt="Analytics">
+                </div>
+                <span>Analytics</span>
+            </a>
+            <a href="departments.html" class="sidebar-item">
+                <div class="sidebar-icon">
+                    <img src="../images/departments.png" alt="Departments">
+                </div>
+                <span>Departments</span>
+            </a>
+            <a href="reports.html" class="sidebar-item">
+                <div class="sidebar-icon">
+                    <img src="../images/reports.png" alt="Reports">
+                </div>
+                <span>Reports</span>
+            </a>
+        </nav>
+
+        <div class="content">
+            <div class="action-buttons">
+                <button class="btn btn-primary" onclick="openModal()">
+                    <div class="btn-icon">
+                        <img src="../images/add.png" alt="Add">
+                    </div>
+                    Add New Request
+                </button>
+            </div>
+
+            <div class="requisition-section">
+                <div class="section-header">
+                    <h2 class="section-title">Requisitions</h2>
+                    <div class="header-controls">
+                        <input type="text" class="search-bar" placeholder="Search....">
+                        <select class="sort-dropdown">
+                            <option>Sort by: Default</option>
+                            <option>Requisition ID</option>
+                            <option>Department</option>
+                            <option>Items</option>
+                            <option>Status</option>
+                            <option>Date Requested</option>
+                            <option>Priority</option>
+                        </select>
+                    </div>
+                </div>
+
+                <table class="requisition-table">
+                    <thead>
+                        <tr>
+                            <th>Request ID</th>
+                            <th>Requested By</th>
+                            <th>Item</th>
+                            <th>Quantity</th>
+                            <th>Department</th>
+                            <th>Date Requested</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="requisitionTableBody">
+                        <tr>
+                            <td>REQ-00123</td>
+                            <td>Maria Dela Cruz</td>
+                            <td>Bath Towels</td>
+                            <td>450</td>
+                            <td>Housekeeping</td>
+                            <td>2025-09-10</td>
+                            <td><span class="status-badge status-pending">Pending</span></td>
+                            <td>
+                                <div class="action-buttons-table">
+                                    <button class="action-btn btn-approve" onclick="approveRequest(this)">
+                                        <div class="action-icon">
+                                            <img src="../images/approve.png" alt="Approve">
+                                        </div>
+                                    </button>
+                                    <button class="action-btn btn-reject" onclick="rejectRequest(this)">
+                                        <div class="action-icon">
+                                            <img src="../images/reject.png" alt="Reject">
+                                        </div>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>REQ-00124</td>
+                            <td>John Santos</td>
+                            <td>Key Cards</td>
+                            <td>80</td>
+                            <td>Front Desk</td>
+                            <td>2025-09-11</td>
+                            <td><span class="status-badge status-approved">Approved</span></td>
+                            <td>
+                                <div class="action-buttons-table">
+                                    <button class="action-btn btn-approve" onclick="approveRequest(this)">
+                                        <div class="action-icon">
+                                            <img src="../images/approve.png" alt="Approve">
+                                        </div>
+                                    </button>
+                                    <button class="action-btn btn-reject" onclick="rejectRequest(this)">
+                                        <div class="action-icon">
+                                            <img src="../images/reject.png" alt="Reject">
+                                        </div>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>REQ-00125</td>
+                            <td>Chef Mateo</td>
+                            <td>Wine Glasses</td>
+                            <td>0</td>
+                            <td>Restaurant</td>
+                            <td>2025-09-12</td>
+                            <td><span class="status-badge status-rejected">Rejected</span></td>
+                            <td>
+                                <div class="action-buttons-table">
+                                    <button class="action-btn btn-approve" onclick="approveRequest(this)">
+                                        <div class="action-icon">
+                                            <img src="../images/approve.png" alt="Approve">
+                                        </div>
+                                    </button>
+                                    <button class="action-btn btn-reject" onclick="rejectRequest(this)">
+                                        <div class="action-icon">
+                                            <img src="../images/reject.png" alt="Reject">
+                                        </div>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>REQ-00126</td>
+                            <td>Alex Cruz</td>
+                            <td>Soap</td>
+                            <td>1,200</td>
+                            <td>Guest Amenities</td>
+                            <td>2025-09-13</td>
+                            <td><span class="status-badge status-completed">Completed</span></td>
+                            <td>
+                                <div class="action-buttons-table">
+                                    <button class="action-btn btn-approve" onclick="approveRequest(this)">
+                                        <div class="action-icon">
+                                            <img src="../images/approve.png" alt="Approve">
+                                        </div>
+                                    </button>
+                                    <button class="action-btn btn-reject" onclick="rejectRequest(this)">
+                                        <div class="action-icon">
+                                            <img src="../images/reject.png" alt="Reject">
+                                        </div>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add New Request Modal -->
+    <div class="popup-overlay" id="modalOverlay">
+        <div class="popup-content">
+            <div class="popup-header">
+                <div class="popup-icon-title">
+                    <div class="popup-icon">
+                        <img src="../images/requisitions.png" alt="Add Request">
+                    </div>
+                    <h2>Add New Request</h2>
+                </div>
+                <button class="close-popup" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="popup-divider"></div>
+            <form class="popup-form" id="requestForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Request ID <span class="required">*</span></label>
+                        <input type="text" id="requestId" value="AUTO-GENERATED" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label>Date <span class="required">*</span></label>
+                        <input type="date" id="dateRequested" required>
+                    </div>
+                </div>
+                <div class="form-group full-width">
+                    <label>Requested By <span class="required">*</span></label>
+                    <input type="text" id="requestedBy" placeholder="Enter Name" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Item <span class="required">*</span></label>
+                        <input type="text" id="item" placeholder="Enter Item" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Quantity <span class="required">*</span></label>
+                        <input type="number" id="quantity" placeholder="0" required>
+                    </div>
+                </div>
+                <div class="form-group full-width">
+                    <label>Department <span class="required">*</span></label>
+                    <select id="department" required>
+                        <option value="">Select Department</option>
+                        <option value="Housekeeping">Housekeeping</option>
+                        <option value="Front Desk">Front Desk</option>
+                        <option value="Restaurant">Restaurant</option>
+                        <option value="Guest Amenities">Guest Amenities</option>
+                        <option value="Maintenance">Maintenance</option>
+                        <option value="Kitchen">Kitchen</option>
+                    </select>
+                </div>
+                <div class="form-group full-width">
+                    <label>Status <span class="required">*</span></label>
+                    <select id="status" required>
+                        <option value="Pending">Pending</option>
+                        <option value="Approved">Approved</option>
+                        <option value="Rejected">Rejected</option>
+                        <option value="Completed">Completed</option>
+                    </select>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn-cancel" onclick="closeModal()">CANCEL</button>
+                    <button type="button" class="btn-add" onclick="addNewRequest()">ADD REQUEST</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        let requestCounter = 127; // Next request number
+
+        function openModal() {
+        const overlay = document.getElementById('modalOverlay');
+        
+        // Show overlay
+        overlay.style.display = 'flex';
+        overlay.classList.add('active');
+        
+        // Set today's date
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('dateRequested').value = today;
+        
+        // Generate new request ID
+        document.getElementById('requestId').value = `REQ-${String(requestCounter).padStart(5, '0')}`;
+        }
+
+        function closeModal() {
+            const overlay = document.getElementById('modalOverlay');
+            
+            // Hide overlay
+            overlay.style.display = 'none';
+            overlay.classList.remove('active');
+            
+            // Reset form
+            document.getElementById('requestForm').reset();
+            document.getElementById('requestId').value = 'AUTO-GENERATED';
+        }
+
+        function addNewRequest() {
+            // Get form values
+            const requestId = document.getElementById('requestId').value;
+            const requestedBy = document.getElementById('requestedBy').value;
+            const item = document.getElementById('item').value;
+            const quantity = document.getElementById('quantity').value;
+            const department = document.getElementById('department').value;
+            const dateRequested = document.getElementById('dateRequested').value;
+            const status = document.getElementById('status').value || 'Pending';
+
+            // Validate required fields
+            if (!requestedBy || !item || !quantity || !department || !dateRequested) {
+                alert('Please fill in all required fields.');
+                return;
+            }
+
+            // Create new row
+            const tableBody = document.getElementById('requisitionTableBody');
+            const newRow = document.createElement('tr');
+            
+            const statusClass = status.toLowerCase();
+            
+            newRow.innerHTML = `
+                <td>${requestId}</td>
+                <td>${requestedBy}</td>
+                <td>${item}</td>
+                <td>${quantity}</td>
+                <td>${department}</td>
+                <td>${dateRequested}</td>
+                <td><span class="status-badge status-${statusClass}">${status}</span></td>
+                <td>
+                    <div class="action-buttons-table">
+                        <button class="action-btn btn-approve" onclick="approveRequest(this)">
+                            <div class="action-icon">
+                                <img src="../images/approve.png" alt="Approve">
+                            </div>
+                        </button>
+                        <button class="action-btn btn-reject" onclick="rejectRequest(this)">
+                            <div class="action-icon">
+                                <img src="../images/reject.png" alt="Reject">
+                            </div>
+                        </button>
+                    </div>
+                </td>
+            `;
+
+            // Add row to beginning of table
+            tableBody.insertBefore(newRow, tableBody.firstChild);
+
+            // Increment counter for next request
+            requestCounter++;
+
+            // Close modal
+            closeModal();
+
+            // Show success message
+            alert('New request added successfully!');
+        }
+
+        // Table Action Functions
+        function approveRequest(button) {
+            const row = button.closest('tr');
+            const statusBadge = row.querySelector('.status-badge');
+            
+            if (!statusBadge.classList.contains('status-approved')) {
+                statusBadge.className = 'status-badge status-approved';
+                statusBadge.textContent = 'Approved';
+                alert('Request approved successfully!');
+            }
+        }
+
+        function rejectRequest(button) {
+            const row = button.closest('tr');
+            const statusBadge = row.querySelector('.status-badge');
+            
+            if (confirm('Are you sure you want to reject this request?')) {
+                statusBadge.className = 'status-badge status-rejected';
+                statusBadge.textContent = 'Rejected';
+                alert('Request rejected successfully!');
+            }
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('modalOverlay').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>

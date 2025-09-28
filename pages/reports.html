@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Requisitions - Balay Ginhawa</title>
+    <link rel="stylesheet" href="../styles/reports.css">
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            <div class="logo-icon">
+                <img src="../images/logo.png" alt="Balay Ginhawa Logo">
+            </div>
+            <div class="logo-text">
+                <h1>Balay</h1>
+                <p>ginhawa</p>
+            </div>
+        </div>
+        <div class="header-right">
+            <div class="admin-section">
+                <div class="admin-avatar">A</div>
+                <div class="admin-info">
+                    <span class="admin-name">Sassa</span> <!-- Add admin name here -->
+                    <span class="admin-text">Admin</span>
+                </div>
+            </div>
+            <button class="btn-logout">
+                <span>Logout</span> <!-- Text after icon -->
+                <div class="logout-icon">
+                    <img src="../images/logout.png" alt="Logout"> <!-- Icon first -->
+                </div>
+            </button>
+        </div>
+    </div>
+
+    <div class="main-container">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <h3>INVENTORY</h3>
+            </div>
+            <a href="dashboard.html" class="sidebar-item">
+                <div class="sidebar-icon">
+                    <img src="../images/dashboard.png" alt="Dashboard">
+                </div>
+                <span>Dashboard</span>
+            </a>
+            <a href="inventory.html" class="sidebar-item">
+                <div class="sidebar-icon">
+                    <img src="../images/inventory.png" alt="Inventory">
+                </div>
+                <span>Inventory</span>
+            </a>
+            <a href="procurement.html" class="sidebar-item">
+                <div class="sidebar-icon">
+                    <img src="../images/procurement.png" alt="Procurement">
+                </div>
+                <span>Procurement</span>
+            </a>
+            <a href="requisitions.html" class="sidebar-item">
+                <div class="sidebar-icon">
+                    <img src="../images/requisitions.png" alt="Requisitions">
+                </div>
+                <span>Requisitions</span>
+            </a>
+            <a href="suppliers.html" class="sidebar-item">
+                <div class="sidebar-icon">
+                    <img src="../images/suppliers.png" alt="Suppliers">
+                </div>
+                <span>Suppliers</span>
+            </a>
+            <a href="analytics.html" class="sidebar-item">
+                <div class="sidebar-icon">
+                    <img src="../images/analytics.png" alt="Analytics">
+                </div>
+                <span>Analytics</span>
+            </a>
+            <a href="departments.html" class="sidebar-item">
+                <div class="sidebar-icon">
+                    <img src="../images/departments.png" alt="Departments">
+                </div>
+                <span>Departments</span>
+            </a>
+            <a href="reports.html" class="sidebar-item active">
+                <div class="sidebar-icon">
+                    <img src="../images/reports.png" alt="Reports">
+                </div>
+                <span>Reports</span>
+            </a>
+        </nav>
+
+        <div class="content">
+            <div class="reports-container">            
+                <!-- Filters Section -->
+                <div class="filters-section">
+                    <div class="section-header">
+                        <h1>Reports</h1>
+                    </div>
+
+                    <div class="report-tabs">
+                        <button class="tab-btn active" data-tab="inventory">
+                            <div class="tab-icon">
+                                <img src="../images/inventory.png" alt="Inventory">
+                            </div>
+                            <span>Inventory</span>
+                        </button>
+                        <button class="tab-btn" data-tab="procurement">
+                            <div class="tab-icon">
+                                <img src="../images/procurement.png" alt="Procurement">
+                            </div>
+                            <span>Procurement</span>
+                        </button>
+                        <button class="tab-btn" data-tab="department">
+                            <div class="tab-icon">
+                                <img src="../images/departments.png" alt="Department">
+                            </div>
+                            <span>Department</span>
+                        </button>
+                        <button class="tab-btn" data-tab="semantic">
+                            <div class="tab-icon">
+                                <img src="../images/reports.png" alt="Semantic Reports">
+                            </div>
+                            <span>Semantic Reports</span>
+                        </button>
+                    </div>
+
+                    <div class="filter-group">
+                        <div class="date-range-filter">
+                            <label>DATE RANGE</label>
+                            <div class="date-inputs">
+                                <div class="date-input">
+                                    <input type="date" id="startDate" value="2025-09-14">
+                                </div>
+                                <span class="date-to">to</span>
+                                <div class="date-input">
+                                    <input type="date" id="endDate" value="2025-09-14">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="dropdown-filters">
+                            <div class="dropdown-filter">
+                                <label>DEPARTMENT</label>
+                                <select>
+                                    <option>All Departments</option>
+                                    <option>Housekeeping</option>
+                                    <option>Maintenance</option>
+                                    <option>F&B</option>
+                                </select>
+                            </div>
+                            <div class="dropdown-filter">
+                                <label>SUPPLIER</label>
+                                <select>
+                                    <option>All Supplier</option>
+                                    <option>ABC Supplies Co.</option>
+                                    <option>Hotel Essentials Ltd.</option>
+                                </select>
+                            </div>
+                            <div class="dropdown-filter">
+                                <label>CATEGORY</label>
+                                <select>
+                                    <option>All Categories</option>
+                                    <option>Housekeeping</option>
+                                    <option>Maintenance</option>
+                                    <option>F&B</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="filter-actions">
+                        <button class="action-btn generate">
+                            <span>Generate Report</span>
+                        </button>
+                        <button class="action-btn reset" onclick="resetFilters()">
+                            <span>Reset Filters</span>
+                        </button>
+                        <button class="action-btn schedule">
+                            <span>Schedule Report</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Report Summary Container -->
+            <div class="report-summary-container">
+                <!-- Header Row -->
+                <div class="report-header">
+                    <h2 class="report-title">Inventory Report - September 2025</h2>
+                    <div class="report-actions">
+                        <button class="export-btn">Export PDF</button>
+                        <button class="print-btn">Print</button>
+                    </div>
+                </div>
+
+                <!-- Stats Cards -->
+                <div class="stats-cards">
+                    <div class="stat-card">
+                        <div class="stat-value">P485,670</div>
+                        <div class="stat-label">Total Inventory Value</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">3,456</div>
+                        <div class="stat-label">Total Items in Stock</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">92.5%</div>
+                        <div class="stat-label">Stock Accountancy Rate</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">18</div>
+                        <div class="stat-label">Low Stock Alert</div>
+                    </div>
+                </div>
+
+                <!-- Chart Section -->
+                <div class="chart-section">
+                    <h3 class="chart-title">Inventory Movement Trends</h3>
+                    <div class="chart-placeholder">
+                        <!-- Chart will be placed here -->
+                        <p>Chart visualization area</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+</body>
+</html>

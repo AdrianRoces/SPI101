@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suppliers - Balay Ginhawa</title>
+    <link rel="stylesheet" href="../styles/suppliers.css">
+    <link rel="stylesheet" href="../styles/sidebar.css">
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            <div class="logo-icon">
+                <img src="../images/logo.png" alt="Balay Ginhawa Logo">
+            </div>
+            <div class="logo-text">
+                <h1>Balay</h1>
+                <p>ginhawa</p>
+            </div>
+        </div>
+        <div class="header-right">
+            <div class="admin-section">
+                <div class="admin-avatar">A</div>
+                <div class="admin-info">
+                    <span class="admin-name">Sassa</span>
+                    <span class="admin-text">Admin</span>
+                </div>
+            </div>
+            <button class="btn-logout">
+                <span>Logout</span>
+                <div class="logout-icon">
+                    <img src="../images/logout.png" alt="Logout">
+                </div>
+            </button>
+        </div>
+    </div>
+
+    <div class="main-container">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <h3>INVENTORY</h3>
+            </div>
+            <a href="dashboard.html" class="sidebar-item">
+                <div class="sidebar-icon">
+                    <img src="../images/dashboard.png" alt="Dashboard">
+                </div>
+                <span>Dashboard</span>
+            </a>
+            <a href="inventory.html" class="sidebar-item">
+                <div class="sidebar-icon">
+                    <img src="../images/inventory.png" alt="Inventory">
+                </div>
+                <span>Inventory</span>
+            </a>
+            <a href="procurement.html" class="sidebar-item">
+                <div class="sidebar-icon">
+                    <img src="../images/procurement.png" alt="Procurement">
+                </div>
+                <span>Procurement</span>
+            </a>
+            <a href="requisitions.html" class="sidebar-item">
+                <div class="sidebar-icon">
+                    <img src="../images/requisitions.png" alt="Requisitions">
+                </div>
+                <span>Requisitions</span>
+            </a>
+            <a href="suppliers.html" class="sidebar-item active">
+                <div class="sidebar-icon">
+                    <img src="../images/suppliers.png" alt="Suppliers">
+                </div>
+                <span>Suppliers</span>
+            </a>
+            <a href="analytics.html" class="sidebar-item">
+                <div class="sidebar-icon">
+                    <img src="../images/analytics.png" alt="Analytics">
+                </div>
+                <span>Analytics</span>
+            </a>
+            <a href="departments.html" class="sidebar-item">
+                <div class="sidebar-icon">
+                    <img src="../images/departments.png" alt="Departments">
+                </div>
+                <span>Departments</span>
+            </a>
+            <a href="reports.html" class="sidebar-item">
+                <div class="sidebar-icon">
+                    <img src="../images/reports.png" alt="Reports">
+                </div>
+                <span>Reports</span>
+            </a>
+        </nav>
+        
+        <!-- Content -->
+        <main class="content">
+            <!-- Action Bar -->
+            <div class="section-header">
+                <div class="header-left">
+                    <h2 class="section-title">Suppliers</h2>
+                    <div class="search-container">
+                        <input type="text" id="searchSupplier" class="search-bar" placeholder="Search Supplier here">
+                    </div>
+                </div>
+                <button class="btn btn-primary" onclick="openEnhancedModal()" id="addSupplierBtn">
+                    <div class="btn-icon">
+                        <img src="../images/add.png" alt="Add">
+                    </div>
+                    Add New Supplier
+                </button>
+            </div>
+
+            <!-- Suppliers List -->
+            <div class="suppliers-list" id="suppliersList">
+                <!-- Supplier cards will be dynamically generated here -->
+            </div>
+        </main>
+    </div>
+
+    <!-- New Enhanced Add Supplier Modal -->
+    <div id="enhancedSupplierModal" class="modal">
+        <div class="modal-content enhanced-modal">
+            <div class="modal-header enhanced-header">
+                <a href="#" class="back-link" onclick="closeEnhancedModalHandler(event)">← Back to supplier list</a>
+                <div class="avatar-container">
+                    <div class="avatar-circle">
+                        <span class="avatar-initial">S</span>
+                        <div class="avatar-badge">+</div>
+                    </div>
+                </div>
+                <div class="divider"></div>
+            </div>
+            
+            <form id="enhancedSupplierForm" class="enhanced-form">
+                <!-- Company Name Section -->
+                <div class="form-section">
+                    <div class="form-group full-width">
+                        <label for="companyName">Company Name <span class="required">*</span></label>
+                        <input type="text" id="companyName" name="companyName" placeholder="Enter company name" required>
+                    </div>
+                </div>
+                
+                <!-- Contact Persons Section -->
+                <div class="form-section">
+                    <h3 class="section-title">Contact Persons</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="contactName">Name <span class="required">*</span></label>
+                            <input type="text" id="contactName" name="contactName" placeholder="Full name" required>
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="companyAddress">Billing Address <span class="required">*</span></label>
+                            <input type="text" id="companyAddress" name="companyAddress" placeholder="Enter billing address" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contactDepartment">Department</label>
+                            <input type="text" id="contactDepartment" name="contactDepartment" placeholder="Department">
+                        </div>
+                        <div class="form-group">
+                            <label for="contactEmail">Email <span class="required">*</span></label>
+                            <input type="email" id="contactEmail" name="contactEmail" placeholder="email@company.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contactPhone">Phone <span class="required">*</span></label>
+                            <input type="tel" id="contactPhone" name="contactPhone" placeholder="+63 XXX-XXX-XXXX" required>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Other Contact Person Section -->
+                <div class="form-section">
+                    <h3 class="section-title">Other Contact Person</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="otherContactName">Name</label>
+                            <input type="text" id="otherContactName" name="otherContactName" placeholder="Full name">
+                        </div>
+                        <div class="form-group">
+                            <label for="otherContactEmail">Email</label>
+                            <input type="email" id="otherContactEmail" name="otherContactEmail" placeholder="email@company.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="otherContactPhone">Phone</label>
+                            <input type="tel" id="otherContactPhone" name="otherContactPhone" placeholder="+63 XXX-XXX-XXXX">
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Purchasing Info Section -->
+                <div class="form-section">
+                    <h3 class="section-title">Purchasing Info</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="currency">Currency <span class="required">*</span></label>
+                            <select id="currency" name="currency" required>
+                                <option value="">Select currency</option>
+                                <option value="PHP">PHP (Philippine Peso)</option>
+                                <option value="USD">USD (US Dollar)</option>
+                                <option value="EUR">EUR (Euro)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="paymentMethod">Payment Method <span class="required">*</span></label>
+                            <select id="paymentMethod" name="paymentMethod" required>
+                                <option value="">Select method</option>
+                                <option value="bank-transfer">Bank Transfer</option>
+                                <option value="credit-card">Credit Card</option>
+                                <option value="check">Check</option>
+                                <option value="cash">Cash</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="courier">Courier</label>
+                            <select id="courier" name="courier">
+                                <option value="">Select courier</option>
+                                <option value="lbc">LBC</option>
+                                <option value="jnt">J&T Express</option>
+                                <option value="ninja-van">Ninja Van</option>
+                                <option value="2go">2Go</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="postalStatus">Postal Status <span class="required">*</span></label>
+                            <select id="postalStatus" name="postalStatus" required>
+                                <option value="">Select status</option>
+                                <option value="active">Active</option>
+                                <option value="inactive">Inactive</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Form Actions -->
+                <div class="form-actions enhanced-actions">
+                    <button type="button" class="btn btn-cancel" id="enhancedCancelBtn">CANCEL</button>
+                    <button type="submit" class="btn btn-add" id="submitBtn">ADD</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Supplier Details Modal -->
+    <div id="supplierDetailsModal" class="modal">
+        <div class="modal-content supplier-details-modal">
+            <div class="supplier-details-header">
+                <div class="supplier-header-top">
+                    <div class="supplier-basic-info">
+                        <div class="supplier-logo-large" id="supplierLogo">L</div>
+                        <div class="supplier-title-section">
+                            <h1 id="supplierCompanyName">Lei Corp</h1>
+                            <div class="supplier-payables">Payables: <strong id="supplierPayables">₱1,000.00</strong></div>
+                        </div>
+                    </div>
+                    <button class="edit-supplier-btn" onclick="openEditSupplier()">Edit</button>
+                </div>
+                <a href="#" class="back-link" onclick="closeSupplierDetails()">← Back to supplier list</a>                
+                <div class="supplier-tabs">
+                    <button class="tab-button active" onclick="switchTab('general')">General Information</button>
+                    <button class="tab-button" onclick="switchTab('products')">Products</button>
+                </div>
+            </div>
+            
+            <div class="supplier-tab-content">
+                <div class="tab-pane active" id="generalTab">
+                    <div class="supplier-left-content">
+                        <!-- Company Info Card (Address with colored background) -->
+                        <div class="info-card address-card">
+                            <h3>Lei Corp</h3>
+                            <div class="info-grid">
+                                <div class="info-row">
+                                    <span class="info-label">Billing Address</span>
+                                    <span class="info-value" id="infoBillingAddress">Mezzanine Floor, Jb Crystal Building, Quirino Hwy, Quezon City</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Purchasing Info Card (transparent) -->
+                        <div class="info-card">
+                            <h3>Purchasing Info</h3>
+                            <div class="info-grid">
+                                <div class="info-row">
+                                    <span class="info-label">CURRENCY</span>
+                                    <span class="info-value" id="infoCurrency">Philippine Peso (PHP)</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="info-label">PAYMENT METHOD</span>
+                                    <span class="info-value" id="infoPaymentMethod">Gcash</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="info-label">PRICE INCLUDE TAXES</span>
+                                    <span class="info-value" id="infoTaxes">Yes</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Other Details Card (transparent) -->
+                        <div class="info-card">
+                            <h3>Other Details</h3>
+                            <div class="info-grid">
+                                <div class="info-row">
+                                    <span class="info-label">COURIER</span>
+                                    <span class="info-value" id="infoCourier">JNT</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="info-label">PORTAL STATUS</span>
+                                    <span class="info-value" id="infoPortalStatus">Active</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="supplier-right-sidebar">
+                        <!-- Primary Contact Card -->
+                        <div class="contact-card">
+                            <div class="contact-header">
+                                <div class="contact-avatar" id="primaryContactAvatar">L</div>
+                                <div class="contact-info">
+                                    <h4 id="primaryContactName">Lei Hutt</h4>
+                                    <div class="contact-role">
+                                        <span id="primaryContactRole">Manager</span>
+                                        <span class="role-badge">Primary</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="contact-details">
+                                <div class="detail-item">
+                                    <span class="detail-label">DEPARTMENT</span>
+                                    <span class="detail-value" id="primaryContactDept">Sales Marketing</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">EMAIL</span>
+                                    <span class="detail-value" id="primaryContactEmail">leihutt@gmail.com</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">PHONE</span>
+                                    <span class="detail-value" id="primaryContactPhone">+63927-156-1328</span>
+                                </div>
+                            </div>
+                            <button class="send-email-btn">Send Email</button>
+                        </div>
+                        
+                        <!-- Other Contact Card -->
+                        <div class="other-contact-card">
+                            <h4>Other Contact Person</h4>
+                            <div class="contact-details">
+                                <div class="detail-item">
+                                    <strong id="otherContactName">Jared Gonzales</strong>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">EMAIL</span>
+                                    <span class="detail-value" id="otherContactEmailDetail">jaredgonzales@gmail.com</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">PHONE</span>
+                                    <span class="detail-value" id="otherContactPhoneDetail">+63927-156-1328</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tab-pane" id="productsTab">
+                <div class="products-tab-content">
+                    <!-- Products Header Section -->
+                    <div class="products-header">
+                        <div class="products-stats">
+                            <h3>Total Products: <span class="total-count">5</span></h3>
+                        </div>
+                        <div class="search-container">
+                            <input type="text" class="search-bar" placeholder="Search Products here">
+                        </div>
+                    </div>
+
+                    <!-- Products Table -->
+                    <div class="products-table-container">
+                        <table class="products-table">
+                            <thead>
+                                <tr>
+                                    <th>Item Code</th>
+                                    <th>Item Name</th>
+                                    <th>Category</th>
+                                    <th>Quantity</th>
+                                    <th>Status</th>
+                                    <th>Department</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1231</td>
+                                    <td>Bath Towels</td>
+                                    <td>Housekeeping</td>
+                                    <td>450</td>
+                                    <td><span class="status-badge status-in-stock">In Stock</span></td>
+                                    <td>Housekeeping</td>
+                                    <td>
+                                        <div class="action-buttons-table">
+                                            <button class="action-btn btn-edit" onclick="openUpdatePopup(this)">
+                                                <div class="action-icon">
+                                                    <img src="../images/edit.png" alt="Edit">
+                                                </div>
+                                            </button>
+                                            <button class="action-btn btn-delete" onclick="openDeletePopup(this)">
+                                                <div class="action-icon">
+                                                    <img src="../images/delete.png" alt="Delete">
+                                                </div>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>1231</td>
+                                    <td>Wine Glasses</td>
+                                    <td>F&B</td>
+                                    <td>80</td>
+                                    <td><span class="status-badge status-low-stock">Low Stock</span></td>
+                                    <td>Restaurant</td>
+                                    <td>
+                                        <div class="action-buttons-table">
+                                            <button class="action-btn btn-edit" onclick="openUpdatePopup(this)">
+                                                <div class="action-icon">
+                                                    <img src="../images/edit.png" alt="Edit">
+                                                </div>
+                                            </button>
+                                            <button class="action-btn btn-delete" onclick="openDeletePopup(this)">
+                                                <div class="action-icon">
+                                                    <img src="../images/delete.png" alt="Delete">
+                                                </div>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>1231</td>
+                                    <td>Light Bulbs</td>
+                                    <td>Maintenance</td>
+                                    <td>0</td>
+                                    <td><span class="status-badge status-out-of-stock">Out of Stock</span></td>
+                                    <td>Maintenance</td>
+                                    <td>
+                                        <div class="action-buttons-table">
+                                            <button class="action-btn btn-edit" onclick="openUpdatePopup(this)">
+                                                <div class="action-icon">
+                                                    <img src="../images/edit.png" alt="Edit">
+                                                </div>
+                                            </button>
+                                            <button class="action-btn btn-delete" onclick="openDeletePopup(this)">
+                                                <div class="action-icon">
+                                                    <img src="../images/delete.png" alt="Delete">
+                                                </div>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>1231</td>
+                                    <td>Soap</td>
+                                    <td>Guest Amenities</td>
+                                    <td>1200</td>
+                                    <td><span class="status-badge status-in-stock">In Stock</span></td>
+                                    <td>Housekeeping</td>
+                                    <td>
+                                        <div class="action-buttons-table">
+                                            <button class="action-btn btn-edit" onclick="openUpdatePopup(this)">
+                                                <div class="action-icon">
+                                                    <img src="../images/edit.png" alt="Edit">
+                                                </div>
+                                            </button>
+                                            <button class="action-btn btn-delete" onclick="openDeletePopup(this)">
+                                                <div class="action-icon">
+                                                    <img src="../images/delete.png" alt="Delete">
+                                                </div>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>1231</td>
+                                    <td>Key Cards</td>
+                                    <td>Front Desk</td>
+                                    <td>85</td>
+                                    <td><span class="status-badge status-low-stock">Low Stock</span></td>
+                                    <td>Front Desk</td>
+                                    <td>
+                                        <div class="action-buttons-table">
+                                            <button class="action-btn btn-edit" onclick="openUpdatePopup(this)">
+                                                <div class="action-icon">
+                                                    <img src="../images/edit.png" alt="Edit">
+                                                </div>
+                                            </button>
+                                            <button class="action-btn btn-delete" onclick="openDeletePopup(this)">
+                                                <div class="action-icon">
+                                                    <img src="../images/delete.png" alt="Delete">
+                                                </div>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sample supplier data
+        let suppliers = [
+            {
+                id: 1,
+                companyName: "Lei Corp",
+                contactPerson: "Lei Hall",
+                email: "leihall@gmail.com",
+                phone: "+63927-156-1328",
+                address: "Mezzanine Floor, Jb Crystal Building, Quirino Hwy, Quezon City",
+                payables: 1000.00,
+                products: 12,
+                portalStatus: "active",
+                currency: "PHP",
+                paymentMethod: "Gcash",
+                taxes: "Yes",
+                courier: "JNT"
+            },
+            {
+                id: 2,
+                companyName: "Tech Solutions Inc",
+                contactPerson: "John Smith",
+                email: "john.smith@techsolutions.com",
+                phone: "+63912-345-6789",
+                address: "Unit 205, Business Center, Makati City",
+                payables: 2500.50,
+                products: 8,
+                portalStatus: "active",
+                currency: "PHP",
+                paymentMethod: "Bank Transfer",
+                taxes: "Yes",
+                courier: "LBC"
+            },
+            {
+                id: 3,
+                companyName: "Global Supplies Co",
+                contactPerson: "Maria Garcia",
+                email: "maria.garcia@globalsupplies.com",
+                phone: "+63998-765-4321",
+                address: "Building A, Industrial Complex, Quezon City",
+                payables: 0.00,
+                products: 25,
+                portalStatus: "inactive",
+                currency: "USD",
+                paymentMethod: "Credit Card",
+                taxes: "No",
+                courier: "Ninja Van"
+            }
+        ];
+
+        let filteredSuppliers = [...suppliers];
+        let currentEditingSupplier = null;
+        let isEditMode = false;
+
+        // DOM Elements
+        const suppliersList = document.getElementById('suppliersList');
+        const searchInput = document.getElementById('searchSupplier');
+        const addSupplierBtn = document.getElementById('addSupplierBtn');
+        const enhancedModal = document.getElementById('enhancedSupplierModal');
+        const supplierDetailsModal = document.getElementById('supplierDetailsModal');
+        const enhancedForm = document.getElementById('enhancedSupplierForm');
+        const enhancedCancelBtn = document.getElementById('enhancedCancelBtn');
+        const backLink = document.querySelector('.back-link');
+        const submitBtn = document.getElementById('submitBtn');
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            renderSuppliers();
+            setupEventListeners();
+            initializeModals();
+        });
+
+        function initializeModals() {
+            enhancedModal.style.display = 'none';
+            supplierDetailsModal.style.display = 'none';
+        }
+
+        function setupEventListeners() {
+            searchInput.addEventListener('input', handleSearch);
+            addSupplierBtn.addEventListener('click', openEnhancedModal);
+            enhancedCancelBtn.addEventListener('click', closeEnhancedModalHandler);
+            backLink.addEventListener('click', closeEnhancedModalHandler);
+            enhancedForm.addEventListener('submit', handleFormSubmit);
+            
+            window.addEventListener('click', function(e) {
+                if (e.target === enhancedModal) {
+                    closeEnhancedModalHandler();
+                }
+                if (e.target === supplierDetailsModal) {
+                    closeSupplierDetails();
+                }
+            });
+        }
+
+        function renderSuppliers() {
+            suppliersList.innerHTML = '';
+            
+            if (filteredSuppliers.length === 0) {
+                suppliersList.innerHTML = `
+                    <div class="no-results">
+                        <p>No suppliers found.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            filteredSuppliers.forEach(supplier => {
+                const supplierCard = createSupplierCard(supplier);
+                suppliersList.appendChild(supplierCard);
+            });
+        }
+
+        function createSupplierCard(supplier) {
+            const card = document.createElement('div');
+            card.className = 'supplier-card';
+            
+            const initial = supplier.companyName.charAt(0).toUpperCase();
+            const statusClass = supplier.portalStatus === 'active' ? 'status-active' : 'status-inactive';
+            const statusText = supplier.portalStatus.charAt(0).toUpperCase() + supplier.portalStatus.slice(1);
+            
+            card.innerHTML = `
+                <div class="card-row top-row">
+                    <div class="supplier-info">
+                        <div class="supplier-avatar">${initial}</div>
+                        <div class="supplier-name">
+                            <h3>${supplier.companyName}</h3>
+                            <p>${supplier.contactPerson}</p>
+                        </div>
+                    </div>
+
+                    <div class="info-group">
+                        <div class="info-column">
+                            <div class="info-label">Contacts</div>
+                            <div class="info-content">
+                                <a href="mailto:${supplier.email}">${supplier.email}</a>
+                                <span class="separator">|</span>
+                                <span class="phone">${supplier.phone}</span>
+                            </div>
+                        </div>
+                        <span class="separator">|</span>
+                        <div class="info-column">
+                            <div class="info-label">Payables</div>
+                            <div class="amount">₱${supplier.payables.toLocaleString('en-US', { minimumFractionDigits: 2 })}</div>
+                        </div>
+                    </div>
+                    <button class="action-btn" onclick="openSupplierDetails(${supplier.id})">⋯</button>
+                </div>
+
+                <div class="bottom-row">
+                    <div class="inner-container">
+                        <div class="address-info">
+                            <span class="location-icon">📍</span>
+                            <p>${supplier.address}</p>
+                        </div>
+
+                        <div class="products-info">
+                            <span class="products-icon">📦</span>
+                            <p>${supplier.products} Product(s)</p>
+                        </div>
+
+                        <div class="portal-status">
+                            <span class="label">PORTAL STATUS:</span>
+                            <span class="status-badge ${statusClass}">${statusText}</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            return card;
+        }
+
+        function handleSearch(e) {
+            const searchTerm = e.target.value.toLowerCase().trim();
+            
+            if (searchTerm === '') {
+                filteredSuppliers = [...suppliers];
+            } else {
+                filteredSuppliers = suppliers.filter(supplier => 
+                    supplier.companyName.toLowerCase().includes(searchTerm) ||
+                    supplier.contactPerson.toLowerCase().includes(searchTerm) ||
+                    supplier.email.toLowerCase().includes(searchTerm) ||
+                    supplier.phone.includes(searchTerm)
+                );
+            }
+            
+            renderSuppliers();
+        }
+
+        function openEnhancedModal() {
+            isEditMode = false;
+            submitBtn.textContent = 'ADD';
+            enhancedForm.reset();
+            enhancedModal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeEnhancedModalHandler(e) {
+            if (e) e.preventDefault();
+            enhancedModal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+            isEditMode = false;
+            currentEditingSupplier = null;
+        }
+
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            
+            if (isEditMode) {
+                handleUpdateSupplier();
+            } else {
+                handleAddSupplier();
+            }
+        }
+
+        function handleAddSupplier() {
+            const formData = new FormData(enhancedForm);
+            const newSupplier = {
+                id: Date.now(),
+                companyName: formData.get('companyName'),
+                contactPerson: formData.get('contactName'),
+                email: formData.get('contactEmail'),
+                phone: formData.get('contactPhone'),
+                address: formData.get('companyAddress'),
+                payables: 0,
+                products: 0,
+                portalStatus: formData.get('postalStatus'),
+                currency: formData.get('currency'),
+                paymentMethod: formData.get('paymentMethod'),
+                taxes: "Yes",
+                courier: formData.get('courier')
+            };
+
+            suppliers.unshift(newSupplier);
+            filteredSuppliers = [...suppliers];
+            renderSuppliers();
+            closeEnhancedModalHandler();
+            showNotification('Supplier added successfully!', 'success');
+        }
+
+        function openSupplierDetails(supplierId) {
+            const supplier = suppliers.find(s => s.id === supplierId);
+            if (!supplier) return;
+            
+            currentEditingSupplier = supplier;
+            
+            // Populate supplier details modal
+            document.getElementById('supplierLogo').textContent = supplier.companyName.charAt(0);
+            document.getElementById('supplierCompanyName').textContent = supplier.companyName;
+            document.getElementById('supplierPayables').textContent = `₱${supplier.payables.toLocaleString('en-US', { minimumFractionDigits: 2 })}`;
+            document.getElementById('infoBillingAddress').textContent = supplier.address;
+            document.getElementById('infoPortalStatus').textContent = supplier.portalStatus.charAt(0).toUpperCase() + supplier.portalStatus.slice(1);
+            document.getElementById('infoCurrency').textContent = supplier.currency;
+            document.getElementById('infoPaymentMethod').textContent = supplier.paymentMethod;
+            document.getElementById('infoTaxes').textContent = supplier.taxes;
+            document.getElementById('infoCourier').textContent = supplier.courier;
+            
+            // Populate contact information
+            document.getElementById('primaryContactAvatar').textContent = supplier.contactPerson.charAt(0);
+            document.getElementById('primaryContactName').textContent = supplier.contactPerson;
+            document.getElementById('primaryContactEmail').textContent = supplier.email;
+            document.getElementById('primaryContactPhone').textContent = supplier.phone;
+            
+            supplierDetailsModal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeSupplierDetails() {
+            supplierDetailsModal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+            currentEditingSupplier = null;
+        }
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-pane').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-button').forEach(button => button.classList.remove('active'));
+            
+            document.getElementById(tabName + 'Tab').classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        function openEditSupplier() {
+            if (!currentEditingSupplier) return;
+            
+            closeSupplierDetails();
+            isEditMode = true;
+            
+            // Populate form with existing data
+            setTimeout(() => {
+                document.getElementById('companyName').value = currentEditingSupplier.companyName;
+                document.getElementById('companyAddress').value = currentEditingSupplier.address;
+                document.getElementById('contactName').value = currentEditingSupplier.contactPerson;
+                document.getElementById('contactEmail').value = currentEditingSupplier.email;
+                document.getElementById('contactPhone').value = currentEditingSupplier.phone;
+                document.getElementById('postalStatus').value = currentEditingSupplier.portalStatus;
+                document.getElementById('currency').value = currentEditingSupplier.currency;
+                document.getElementById('paymentMethod').value = currentEditingSupplier.paymentMethod;
+                document.getElementById('courier').value = currentEditingSupplier.courier;
+                
+                submitBtn.textContent = 'UPDATE';
+                enhancedModal.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+            }, 100);
+        }
+
+        function handleUpdateSupplier() {
+            if (!currentEditingSupplier) return;
+            
+            const formData = new FormData(enhancedForm);
+            
+            // Update supplier data
+            currentEditingSupplier.companyName = formData.get('companyName');
+               currentEditingSupplier.address = formData.get('companyAddress');
+            currentEditingSupplier.contactPerson = formData.get('contactName');
+            currentEditingSupplier.email = formData.get('contactEmail');
+            currentEditingSupplier.phone = formData.get('contactPhone');
+            currentEditingSupplier.portalStatus = formData.get('postalStatus');
+            currentEditingSupplier.currency = formData.get('currency');
+            currentEditingSupplier.paymentMethod = formData.get('paymentMethod');
+            currentEditingSupplier.courier = formData.get('courier');
+            
+            filteredSuppliers = [...suppliers];
+            renderSuppliers();
+            closeEnhancedModalHandler();
+            showNotification('Supplier updated successfully!', 'success');
+        }
+
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `notification notification-${type}`;
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.opacity = '0';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+
+        document.querySelector('.btn-logout').addEventListener('click', function() {
+            if (confirm('Are you sure you want to logout?')) {
+                alert('Logging out...');
+            }
+        });
+    </script>
+</body>
+</html>

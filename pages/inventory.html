@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory - School Property Inventory</title>
+    <link rel="stylesheet" href="../styles/dashboard.css">
+</head>
+<body>
+   <!-- Add Item Popup -->
+    <div class="popup-overlay" id="addItemPopup">
+        <div class="popup-content">
+            <div class="popup-header">
+                <div class="popup-icon-title">
+                    <div class="popup-icon">
+                        <img src="../images/add.png" alt="Add Item">
+                    </div>
+                    <h2>Add New Item</h2>
+                </div>
+                <button class="close-popup" onclick="closePopup('addItemPopup')">&times;</button>
+            </div>
+            <div class="popup-divider"></div>
+            <div class="popup-form">
+                <div class="form-row">
+                    <div class="form-group item-code">
+                        <label for="itemCode">Item Code</label>
+                        <input type="text" id="itemCode" placeholder="Enter item code">
+                    </div>
+                    <div class="form-group item-name">
+                        <label for="itemName">Item Name</label>
+                        <input type="text" id="itemName" placeholder="Enter item name">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group full-width">
+                        <label for="category">Category</label>
+                        <input type="text" id="category" placeholder="Enter category">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group full-width">
+                        <label for="department">Department</label>
+                        <select id="department">
+                            <option value="">Select department</option>
+                            <option value="housekeeping">Housekeeping</option>
+                            <option value="maintenance">Maintenance</option>
+                            <option value="f&b">F&B</option>
+                            <option value="front-desk">Front Desk</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group status">
+                        <label for="status">Status</label>
+                        <select id="status">
+                            <option value="">Select status</option>
+                            <option value="in-stock">In Stock</option>
+                            <option value="low-stock">Low Stock</option>
+                            <option value="out-of-stock">Out of Stock</option>
+                        </select>
+                    </div>
+                    <div class="form-group quantity">
+                        <label for="quantity">Quantity</label>
+                        <input type="number" id="quantity" placeholder="0">
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button class="btn-cancel" onclick="closePopup('addItemPopup')">CANCEL</button>
+                    <button class="btn-add" onclick="addItem()">ADD</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Update Item Popup -->
+    <div class="popup-overlay" id="updateItemPopup">
+        <div class="popup-content">
+            <div class="popup-header">
+                <div class="popup-icon-title">
+                    <div class="popup-icon">
+                        <img src="../images/edit.png" alt="Update Item">
+                    </div>
+                    <h2>Update Item</h2>
+                </div>
+                <button class="close-popup" onclick="closePopup('updateItemPopup')">&times;</button>
+            </div>
+            <div class="popup-divider"></div>
+            <div class="popup-form">
+                <div class="form-row">
+                    <div class="form-group item-code">
+                        <input type="text" id="updateItemCode" placeholder="Item Code">
+                    </div>
+                    <div class="form-group item-name">
+                        <input type="text" id="updateItemName" placeholder="Item Name">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group full-width">
+                        <input type="text" id="updateCategory" placeholder="Category">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group full-width">
+                        <select id="updateDepartment">
+                            <option value="">Select department</option>
+                            <option value="housekeeping">Housekeeping</option>
+                            <option value="maintenance">Maintenance</option>
+                            <option value="f&b">F&B</option>
+                            <option value="front-desk">Front Desk</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group status">
+                        <select id="updateStatus">
+                            <option value="">Select status</option>
+                            <option value="in-stock">In Stock</option>
+                            <option value="low-stock">Low Stock</option>
+                            <option value="out-of-stock">Out of Stock</option>
+                        </select>
+                    </div>
+                    <div class="form-group quantity">
+                        <input type="number" id="updateQuantity" placeholder="Quantity">
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button class="btn-cancel" onclick="closePopup('updateItemPopup')">CANCEL</button>
+                    <button class="btn-update" onclick="updateItem()">UPDATE</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Popup -->
+    <div class="popup-overlay" id="deleteItemPopup">
+        <div class="popup-content">
+            <div class="popup-header">
+                <div class="popup-icon-title">
+                    <div class="popup-icon">
+                        <img src="../images/delete.png" alt="Delete Item">
+                    </div>
+                    <h2>Delete Confirmation</h2>
+                </div>
+                <button class="close-popup" onclick="closePopup('deleteItemPopup')">&times;</button>
+            </div>
+            <div class="popup-divider"></div>
+            <div class="popup-form">
+                <div class="delete-content">
+                    <p>Are you sure you want to delete this entry?</p>
+                </div>
+                <div class="form-actions">
+                    <button class="btn-cancel" onclick="closePopup('deleteItemPopup')">CANCEL</button>
+                    <button class="btn-deletex" onclick="deleteItem()">CONFIRM</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header">
+        <div class="logo">
+            <div class="logo-icon">
+                <img src="../images/logo.png" alt="Balay Ginhawa Logo">
+            </div>
+            <div class="logo-text">
+                <h1>Balay</h1>
+                <p>ginhawa</p>
+            </div>
+        </div>
+        <div class="header-right">
+            <div class="admin-section">
+                <div class="admin-avatar">A</div>
+                <div class="admin-info">
+                    <span class="admin-name">Sassa</span> <!-- Add admin name here -->
+                    <span class="admin-text">Admin</span>
+                </div>
+            </div>
+            <button class="btn-logout">
+                <span>Logout</span> <!-- Text after icon -->
+                <div class="logout-icon">
+                    <img src="../images/logout.png" alt="Logout"> <!-- Icon first -->
+                </div>
+            </button>
+        </div>
+    </div>
+    
+    <div class="main-container">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <h3>INVENTORY</h3>
+            </div>
+            <a href="dashboard.html" class="sidebar-item">
+                <div class="sidebar-icon">
+                    <img src="../images/dashboard.png" alt="Dashboard">
+                </div>
+                <span>Dashboard</span>
+            </a>
+            <a href="inventory.html" class="sidebar-item active">
+                <div class="sidebar-icon">
+                    <img src="../images/inventory.png" alt="Inventory">
+                </div>
+                <span>Inventory</span>
+            </a>
+            <a href="procurement.html" class="sidebar-item">
+                <div class="sidebar-icon">
+                    <img src="../images/procurement.png" alt="Procurement">
+                </div>
+                <span>Procurement</span>
+            </a>
+            <a href="requisitions.html" class="sidebar-item">
+                <div class="sidebar-icon">
+                    <img src="../images/requisitions.png" alt="Requisitions">
+                </div>
+                <span>Requisitions</span>
+            </a>
+            <a href="suppliers.html" class="sidebar-item">
+                <div class="sidebar-icon">
+                    <img src="../images/suppliers.png" alt="Suppliers">
+                </div>
+                <span>Suppliers</span>
+            </a>
+            <a href="analytics.html" class="sidebar-item">
+                <div class="sidebar-icon">
+                    <img src="../images/analytics.png" alt="Analytics">
+                </div>
+                <span>Analytics</span>
+            </a>
+            <a href="departments.html" class="sidebar-item">
+                <div class="sidebar-icon">
+                    <img src="../images/departments.png" alt="Departments">
+                </div>
+                <span>Departments</span>
+            </a>
+            <a href="reports.html" class="sidebar-item">
+                <div class="sidebar-icon">
+                    <img src="../images/reports.png" alt="Reports">
+                </div>
+                <span>Reports</span>
+            </a>
+        </nav>
+
+        <div class="content">
+            <div class="action-buttons">
+                <button class="btn btn-primary" onclick="openPopup('addItemPopup')">
+                    <div class="btn-icon">
+                        <img src="../images/add.png" alt="Add">
+                    </div>
+                    Add New Item
+                </button>
+                <button class="btn btn-secondary">
+                    <div class="btn-icon">
+                        <img src="../images/generate.png" alt="Report">
+                    </div>
+                    Generate Report
+                </button>
+            </div>
+
+            <!-- Inventory Section -->
+            <div class="inventory-section">
+                <div class="section-header">
+                    <h2 class="section-title">Current Inventory</h2>
+                    <div class="header-controls">
+                        <input type="text" class="search-bar" placeholder="Search...">
+                        <select class="sort-dropdown">
+                            <option>Sort by: Default</option>
+                            <option>Item Code</option>
+                            <option>Item Name</option>
+                            <option>Category</option>
+                            <option>Quantity</option>
+                            <option>Status</option>
+                            <option>Department</option>
+                        </select>
+                    </div>
+                </div>
+
+                <table class="inventory-table">
+                    <thead>
+                        <tr>
+                            <th>Item Code</th>
+                            <th>Item Name</th>
+                            <th>Category</th>
+                            <th>Quantity</th>
+                            <th>Status</th>
+                            <th>Department</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1231</td>
+                            <td>Bath Towels</td>
+                            <td>Housekeeping</td>
+                            <td>450</td>
+                            <td><span class="status-badge status-in-stock">In Stock</span></td>
+                            <td>Housekeeping</td>
+                            <td>
+                                <div class="action-buttons-table">
+                                    <button class="action-btn btn-edit" onclick="openUpdatePopup(this)">
+                                        <div class="action-icon">
+                                            <img src="../images/edit.png" alt="Edit">
+                                        </div>
+                                    </button>
+                                    <button class="action-btn btn-delete" onclick="openDeletePopup(this)">
+                                        <div class="action-icon">
+                                            <img src="../images/delete.png" alt="Delete">
+                                        </div>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>1231</td>
+                            <td>Wine Glasses</td>
+                            <td>F&B</td>
+                            <td>80</td>
+                            <td><span class="status-badge status-low-stock">Low Stock</span></td>
+                            <td>Restaurant</td>
+                            <td>
+                                <div class="action-buttons-table">
+                                    <button class="action-btn btn-edit" onclick="openUpdatePopup(this)">
+                                        <div class="action-icon">
+                                            <img src="../images/edit.png" alt="Edit">
+                                        </div>
+                                    </button>
+                                    <button class="action-btn btn-delete" onclick="openDeletePopup(this)">
+                                        <div class="action-icon">
+                                            <img src="../images/delete.png" alt="Delete">
+                                        </div>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>1231</td>
+                            <td>Light Bulbs</td>
+                            <td>Maintenance</td>
+                            <td>0</td>
+                            <td><span class="status-badge status-out-of-stock">Out of Stock</span></td>
+                            <td>Maintenance</td>
+                            <td>
+                                <div class="action-buttons-table">
+                                    <button class="action-btn btn-edit" onclick="openUpdatePopup(this)">
+                                        <div class="action-icon">
+                                            <img src="../images/edit.png" alt="Edit">
+                                        </div>
+                                    </button>
+                                    <button class="action-btn btn-delete" onclick="openDeletePopup(this)">
+                                        <div class="action-icon">
+                                            <img src="../images/delete.png" alt="Delete">
+                                        </div>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>1231</td>
+                            <td>Soap</td>
+                            <td>Guest Amenities</td>
+                            <td>1200</td>
+                            <td><span class="status-badge status-in-stock">In Stock</span></td>
+                            <td>Housekeeping</td>
+                            <td>
+                                <div class="action-buttons-table">
+                                    <button class="action-btn btn-edit" onclick="openUpdatePopup(this)">
+                                        <div class="action-icon">
+                                            <img src="../images/edit.png" alt="Edit">
+                                        </div>
+                                    </button>
+                                    <button class="action-btn btn-delete" onclick="openDeletePopup(this)">
+                                        <div class="action-icon">
+                                            <img src="../images/delete.png" alt="Delete">
+                                        </div>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>1231</td>
+                            <td>Key Cards</td>
+                            <td>Front Desk</td>
+                            <td>85</td>
+                            <td><span class="status-badge status-low-stock">Low Stock</span></td>
+                            <td>Front Desk</td>
+                            <td>
+                                <div class="action-buttons-table">
+                                    <button class="action-btn btn-edit" onclick="openUpdatePopup(this)">
+                                        <div class="action-icon">
+                                            <img src="../images/edit.png" alt="Edit">
+                                        </div>
+                                    </button>
+                                    <button class="action-btn btn-delete" onclick="openDeletePopup(this)">
+                                        <div class="action-icon">
+                                            <img src="../images/delete.png" alt="Delete">
+                                        </div>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+    <script>
+        // Global variables to track current item being edited/deleted
+        let currentEditingRow = null;
+        let currentDeletingRow = null;
+
+        // Popup Functions
+        function openPopup(popupId) {
+            document.getElementById(popupId).classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closePopup(popupId) {
+            document.getElementById(popupId).classList.remove('active');
+            document.body.style.overflow = 'auto';
+            if (popupId === 'updateItemPopup' && currentEditingRow) {
+                currentEditingRow.classList.remove('editing-row');
+                currentEditingRow = null;
+            }
+            if (popupId === 'deleteItemPopup') {
+                currentDeletingRow = null;
+            }
+        }
+
+        function addItem() {
+            const itemCode = document.getElementById('itemCode').value;
+            const itemName = document.getElementById('itemName').value;
+            const category = document.getElementById('category').value;
+            const department = document.getElementById('department').value;
+            const status = document.getElementById('status').value;
+            const quantity = document.getElementById('quantity').value;
+
+            if (!itemCode || !itemName || !category || !department || !status || !quantity) {
+                alert('Please fill in all fields');
+                return;
+            }
+
+            // Add new row to table
+            const tableBody = document.querySelector('.inventory-table tbody');
+            const newRow = document.createElement('tr');
+            
+            // Determine status badge class
+            let statusClass = 'status-in-stock';
+            if (status.toLowerCase().includes('low')) {
+                statusClass = 'status-low-stock';
+            } else if (status.toLowerCase().includes('out')) {
+                statusClass = 'status-out-of-stock';
+            }
+
+            newRow.innerHTML = `
+                <td>${itemCode}</td>
+                <td>${itemName}</td>
+                <td>${category}</td>
+                <td>${quantity}</td>
+                <td><span class="status-badge ${statusClass}">${status}</span></td>
+                <td>${department}</td>
+                <td>
+                    <div class="action-buttons-table">
+                        <button class="action-btn btn-edit" onclick="openUpdatePopup(this)">
+                            <div class="action-icon">
+                                <img src="../images/edit.png" alt="Edit">
+                            </div>
+                        </button>
+                        <button class="action-btn btn-delete" onclick="openDeletePopup(this)">
+                            <div class="action-icon">
+                                <img src="../images/delete.png" alt="Delete">
+                            </div>
+                        </button>
+                    </div>
+                </td>
+            `;
+            
+            tableBody.appendChild(newRow);
+            closePopup('addItemPopup');
+            resetAddForm();
+            
+            // Update total items count
+            updateTotalItemsCount();
+            alert('Item added successfully!');
+        }
+
+        function resetAddForm() {
+            document.getElementById('itemCode').value = '';
+            document.getElementById('itemName').value = '';
+            document.getElementById('category').value = '';
+            document.getElementById('department').value = '';
+            document.getElementById('status').value = '';
+            document.getElementById('quantity').value = '';
+        }
+
+        // Update Item Functions
+        function openUpdatePopup(button) {
+            const row = button.closest('tr');
+            currentEditingRow = row;
+            
+            // Highlight the row being edited
+            document.querySelectorAll('tr').forEach(r => r.classList.remove('editing-row'));
+            row.classList.add('editing-row');
+            
+            // Get current values from the row
+            const cells = row.getElementsByTagName('td');
+            
+            document.getElementById('updateItemCode').value = cells[0].textContent;
+            document.getElementById('updateItemName').value = cells[1].textContent;
+            document.getElementById('updateCategory').value = cells[2].textContent;
+            document.getElementById('updateQuantity').value = cells[3].textContent;
+            // Extract text content from status badge
+            document.getElementById('updateStatus').value = cells[4].querySelector('.status-badge').textContent.trim();
+            document.getElementById('updateDepartment').value = cells[5].textContent;
+            
+            openPopup('updateItemPopup');
+        }
+
+        function updateItem() {
+            if (!currentEditingRow) return;
+            
+            const itemCode = document.getElementById('updateItemCode').value;
+            const itemName = document.getElementById('updateItemName').value;
+            const category = document.getElementById('updateCategory').value;
+            const department = document.getElementById('updateDepartment').value;
+            const status = document.getElementById('updateStatus').value;
+            const quantity = document.getElementById('updateQuantity').value;
+
+            if (!itemCode || !itemName || !category || !department || !status || !quantity) {
+                alert('Please fill in all fields');
+                return;
+            }
+
+            // Update the row with new values
+            const cells = currentEditingRow.getElementsByTagName('td');
+            cells[0].textContent = itemCode;
+            cells[1].textContent = itemName;
+            cells[2].textContent = category;
+            cells[3].textContent = quantity;
+            cells[5].textContent = department;
+            
+            // Update status with proper styling
+            let statusClass = 'status-in-stock';
+            if (status.toLowerCase().includes('low')) {
+                statusClass = 'status-low-stock';
+            } else if (status.toLowerCase().includes('out')) {
+                statusClass = 'status-out-of-stock';
+            }
+            
+            cells[4].innerHTML = `<span class="status-badge ${statusClass}">${status}</span>`;
+            
+            // Log the update details
+            console.log('Item Updated:', {
+                itemCode,
+                itemName,
+                category,
+                department,
+                status,
+                quantity
+            });
+            
+            closePopup('updateItemPopup');
+            alert('Item updated successfully!');
+        }
+
+        // Delete Item Functions
+        function openDeletePopup(button) {
+            const row = button.closest('tr');
+            currentDeletingRow = row;
+            openPopup('deleteItemPopup');
+        }
+
+        function deleteItem() {
+            if (!currentDeletingRow) return;
+            
+            // Get item details before deletion for logging
+            const cells = currentDeletingRow.getElementsByTagName('td');
+            const deletedItemDetails = {
+                itemCode: cells[0].textContent,
+                itemName: cells[1].textContent,
+                category: cells[2].textContent,
+                quantity: cells[3].textContent,
+                status: cells[4].querySelector('.status-badge').textContent,
+                department: cells[5].textContent
+            };
+            
+            currentDeletingRow.remove();
+            closePopup('deleteItemPopup');
+            
+            // Log deletion details
+            console.log('Item Deleted:', deletedItemDetails);
+            
+            // Update total items count
+            updateTotalItemsCount();
+            alert('Item deleted successfully!');
+        }
+
+        // Utility function to update total items count
+        function updateTotalItemsCount() {
+            const totalRows = document.querySelectorAll('.inventory-table tbody tr').length;
+            const totalItemsElement = document.querySelector('.stat-number');
+            if (totalItemsElement) {
+                totalItemsElement.textContent = totalRows.toLocaleString();
+            }
+        }
+
+        // Close popups when clicking outside
+        document.querySelectorAll('.popup-overlay').forEach(overlay => {
+            overlay.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closePopup(this.id);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
